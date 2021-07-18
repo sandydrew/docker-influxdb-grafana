@@ -11,8 +11,13 @@ influxdb:
   volumes:
     # Data persistency
     # sudo mkdir -p /srv/docker/influxdb/data
-    - /srv/docker/influxdb/data:/var/lib/influxdb
-
+    - ./docker/influxdb/data:/var/lib/influxdb
+    - ./docker/influxdb2/data:/var/lib/influxdb2
+  environment:
+    - DOCKER_INFLUXDB_INIT_USERNAME=${INFLUXDB_USER}
+    - DOCKER_INFLUXDB_INIT_PASSWORD=${INFLUXDB_PASS}
+    - DOCKER_INFLUXDB_INIT_ORG=${INFLUXDB_ORG}
+    - DOCKER_INFLUXDB_INIT_BUCKET=${INFLUXDB_BUCKET}
 telegraf:
   image: telegraf:latest
   container_name: telegraf
@@ -34,4 +39,4 @@ grafana:
   volumes:
     # Data persistency
     # sudo mkdir -p /srv/docker/grafana/data; chown 472:472 /srv/docker/grafana/data
-    - /srv/docker/grafana/data:/var/lib/grafana
+    - ./docker/grafana/data:/var/lib/grafana
