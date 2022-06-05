@@ -1,6 +1,7 @@
 influxdb:
   image: influxdb:latest
   container_name: influxdb
+  restart: unless-stopped
   ports:
     - "8083:8083"
     - "8086:8086"
@@ -21,6 +22,7 @@ influxdb:
 telegraf:
   image: telegraf:latest
   container_name: telegraf
+  restart: unless-stopped
   links:
     - influxdb
   volumes:
@@ -29,6 +31,7 @@ telegraf:
 grafana:
   image: grafana/grafana:latest
   container_name: grafana
+  restart: unless-stopped
   ports:
     - "3000:3000"
   env_file:
